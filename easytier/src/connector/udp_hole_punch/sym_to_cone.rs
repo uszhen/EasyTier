@@ -429,7 +429,6 @@ pub mod tests {
         time::Duration,
     };
 
-    use serde_json::ser;
     use tokio::net::UdpSocket;
 
     use crate::{

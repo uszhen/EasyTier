@@ -23,7 +23,7 @@ use crate::{
     tunnel::{udp::new_hole_punch_packet, Tunnel},
 };
 
-use super::common::{PunchHoleServerCommon, UdpSocketArray};
+use super::common::{PunchHoleServerCommon, UdpNatType, UdpSocketArray};
 
 pub(crate) struct PunchBothEasySymHoleServer {
     common: Arc<PunchHoleServerCommon>,
@@ -151,10 +151,15 @@ impl PunchBothEasySymHoleClient {
     pub(crate) async fn do_hole_punching(
         &self,
         dst_peer_id: PeerId,
+        my_nat_info: UdpNatType,
+        peer_nat_info: UdpNatType,
+        is_busy: &mut bool,
     ) -> Result<Box<dyn Tunnel>, anyhow::Error> {
         const UDP_ARRAY_SIZE_FOR_BOTH_EASY_SYM: usize = 25;
         const DST_PORT_OFFSET: u16 = 20;
         const REMOTE_WAIT_TIME_MS: u64 = 5000;
+
+        *is_busy = false;
 
         let udp_array = UdpSocketArray::new(
             UDP_ARRAY_SIZE_FOR_BOTH_EASY_SYM,
@@ -174,7 +179,12 @@ impl PunchBothEasySymHoleClient {
                 anyhow::bail!("ipv6 is not supported");
             }
         };
-        let is_incremental = true;
+        let me_is_incremental = my_nat_info
+            .get_inc_of_easy_sym()
+            .ok_or(anyhow::anyhow!("me_is_incremental is required"))?;
+        let peer_is_incremental = peer_nat_info
+            .get_inc_of_easy_sym()
+            .ok_or(anyhow::anyhow!("peer_is_incremental is required"))?;
 
         let rpc_stub = self
             .peer_mgr
@@ -197,7 +207,7 @@ impl PunchBothEasySymHoleClient {
                 SendPunchPacketBothEasySymRequest {
                     transaction_id: tid,
                     public_ip: Some(my_public_ip.into()),
-                    dst_port_num: if is_incremental {
+                    dst_port_num: if me_is_incremental {
                         cur_mapped_addr.port().saturating_add(DST_PORT_OFFSET)
                     } else {
                         cur_mapped_addr.port().saturating_sub(DST_PORT_OFFSET)
@@ -208,6 +218,7 @@ impl PunchBothEasySymHoleClient {
             )
             .await?;
         if remote_ret.is_busy {
+            *is_busy = true;
             anyhow::bail!("remote is busy");
         }
 
@@ -216,7 +227,7 @@ impl PunchBothEasySymHoleClient {
             .ok_or(anyhow::anyhow!("remote_mapped_addr is required"))?;
 
         let now = Instant::now();
-        remote_mapped_addr.port = if is_incremental {
+        remote_mapped_addr.port = if peer_is_incremental {
             remote_mapped_addr
                 .port
                 .saturating_add(DST_PORT_OFFSET as u32)

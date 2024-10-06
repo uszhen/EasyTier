@@ -1,3 +1,11 @@
+# 服务器代理服务
+
+如果你觉得本项目对你有用,而且你也恰巧有这方面的需求,你也可以选择通过我的购买链接赞助我  
+- [搬瓦工GIA服务器](https://bandwagonhost.com/aff.php?aff=41846)  - - - 仅推荐购买GIA套餐 - - -   
+
+如果你希望购买一些现成的代理服务,可选择下述代理服务
+- [搬瓦工官方机场](https://justmysocks.net/members/aff.php?aff=16884)  
+
 # EasyTier
 
 [![GitHub](https://img.shields.io/github/license/EasyTier/EasyTier)](https://github.com/EasyTier/EasyTier/blob/main/LICENSE)
@@ -316,12 +324,6 @@ We welcome and encourage community contributions! If you want to get involved, p
 
 EasyTier is released under the [Apache License 2.0](https://github.com/EasyTier/EasyTier/blob/main/LICENSE).
 
-## Contact
-
-- Ask questions or report problems: [GitHub Issues](https://github.com/EasyTier/EasyTier/issues)
-- Discussion and exchange: [GitHub Discussions](https://github.com/EasyTier/EasyTier/discussions)
-- Telegram：https://t.me/easytier
-- QQ Group: 949700262
 
 ## Sponsor
 

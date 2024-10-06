@@ -317,15 +317,3 @@ sudo easytier-core --network-name easytier --network-secret easytier -p tcp://pu
 ## 许可证
 
 EasyTier 根据 [Apache License 2.0](https://github.com/EasyTier/EasyTier/blob/main/LICENSE) 许可证发布。
-
-## 联系方式
-
-- 提问或报告问题：[GitHub Issues](https://github.com/EasyTier/EasyTier/issues)
-- 讨论和交流：[GitHub Discussions](https://github.com/EasyTier/EasyTier/discussions)
-- QQ 群： 949700262
-- Telegram：https://t.me/easytier
-
-## 赞助
-
-<img src="assets/image-8.png" width="300">
-<img src="assets/image-9.png" width="300">

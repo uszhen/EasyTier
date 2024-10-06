@@ -324,8 +324,3 @@ We welcome and encourage community contributions! If you want to get involved, p
 
 EasyTier is released under the [Apache License 2.0](https://github.com/EasyTier/EasyTier/blob/main/LICENSE).
 
-
-## Sponsor
-
-<img src="assets/image-8.png" width="300">
-<img src="assets/image-9.png" width="300">
